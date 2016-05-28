@@ -1,0 +1,33 @@
+---
+
+- name: ensure template folder exists
+  file:
+    dest={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder}}
+    state=directory
+
+- name: download given version of wp-framework
+  unarchive:
+    src=https://github.com/ktstudio/WP-Framework/releases/download/v{{ wp_fw_version }}/wp-framework.zip
+    dest={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder}}
+    copy=no
+    creates={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder}}/kt
+
+- name: create functions.php
+  file:
+    dest={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder}}/functions.php
+    state=touch
+
+- name: register wp-framework in functions.php
+  lineinfile:
+    dest={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder}}/functions.php
+    line="require_once(TEMPLATEPATH . '/kt/kt_init.inc.php');"
+    state=present
+  ignore_errors: yes
+
+- name: create prefix folder
+  file:
+    dest={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder }}/kt/{{ wp_fw_prefix }}
+    state=directory
+
+- name: create init in prefix folder
+  template: src=kt_init.inc.php.j2 dest={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder }}/kt/{{ wp_fw_prefix }}/kt_init.inc.php

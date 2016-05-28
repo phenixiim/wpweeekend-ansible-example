@@ -1,0 +1,7 @@
+---
+- name: wordpress isntallation
+  hosts: webserver
+  roles:
+    - role: wp-install
+    - role: wp-framework
+      tags: wp_fw
