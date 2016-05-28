@@ -1,6 +1,6 @@
 ---
 # Which version of WordPress to deploy and where
-target_directory: /Users/daliborjaros/__work/wptest
+target_directory: /Users/daliborjaros/__work/wptest2
 wp_version: 4.5.2
 
 # These are the WordPress database settings
