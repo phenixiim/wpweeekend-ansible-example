@@ -1,13 +1,13 @@
 ---
 # Which version of WordPress to deploy and where
-target_directory: /tmp/wpweekend
+target_directory: /Users/daliborjaros/__work/wptest
 wp_version: 4.5.2
 
 # These are the WordPress database settings
 wp_create_user: false
-wp_db_name: wordpress
-wp_db_user: wordpress
-wp_db_password: secret
+wp_db_name: wptest
+wp_db_user: root
+wp_db_password: 
 
 
 # You shouldn't need to change this.
