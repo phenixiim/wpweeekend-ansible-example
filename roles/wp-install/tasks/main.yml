@@ -9,8 +9,12 @@
     copy=no
     creates={{ target_directory }}/wordpress
 
-- name: Moving files from wordpress folder to parent
-  command: mv {{ target_directory }}/wordpress ""
+- name: Move files from wordpress folder to parent directory
+  raw: mv {{ target_directory }}/wordpress/* {{ target_directory }}
+
+- name: delete worpress folder
+  file: path={{ target_directory }}/wordpress state=absent
+
 
 - name: create WordPress database
   mysql_db: name={{ wp_db_name }} state=present
