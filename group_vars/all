@@ -16,5 +16,5 @@ mysql_port: 3306
 
 wp_fw_install: yes
 wp_fw_version: 1.8
-wp_fw_template_folder: main
+wp_fw_template_folder: twentysixteen
 wp_fw_prefix: yours

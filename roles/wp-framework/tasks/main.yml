@@ -12,17 +12,11 @@
     copy=no
     creates={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder}}/kt
 
-- name: create functions.php
-  file:
-    dest={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder}}/functions.php
-    state=touch
-
 - name: register wp-framework in functions.php
   lineinfile:
-    dest={{ target_directory }}/wordpress/wp-content/{{ wp_fw_template_folder}}/functions.php
+    dest={{ target_directory }}/wordpress/wp-content/themes/{{ wp_fw_template_folder}}/functions.php
     line="require_once(TEMPLATEPATH . '/kt/kt_init.inc.php');"
     state=present
-  ignore_errors: yes
 
 - name: create prefix folder
   file:
