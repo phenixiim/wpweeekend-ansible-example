@@ -2,12 +2,25 @@
 - name: target directory exists and is writeable
   file: path={{ target_directory }} state=directory mode=755
 
-- name: download and extract WordPress
+- name: check if archive already downloaded
+  stat: path={{ target_directory }}/wordpress-{{ wp_version }}.tar.gz
+  register: wp_archive
+
+- name: download and extract WordPress if not already downloaded
   unarchive:
     src=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz
     dest={{ target_directory }}
     copy=no
     creates={{ target_directory }}/wordpress
+  when: not wp_archive.stat.exists
+
+- name: extract downloaded WordPress if already downloaded
+  unarchive:
+    src={{ target_directory }}/wordpress-{{ wp_version }}.tar.gz
+    dest={{ target_directory }}
+    copy=no
+    creates={{ target_directory }}/wordpress
+  when: wp_archive.stat.exists
 
 - name: create WordPress database
   mysql_db: name={{ wp_db_name }} state=present
@@ -24,7 +37,7 @@
 
 - name: fetch random salts for WordPress config
   local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
-  register: "wp_salt"
+  register: wp_salt
 
 - name: copy WordPress config file
   template: src=wp-config.php.j2 dest={{ target_directory }}/wordpress/wp-config.php
