@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="15163421-f116-4d8e-a2d3-f27ffb7ee041" name="samba ansible space" url="http://localhost">
+        <fileTransfer mountedRoot="/Volumes/space/wpweeekend-ansible-example" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
